@@ -20,10 +20,10 @@ export default function Navbar({}: Props) {
 
                     {/* SEARCH BOX */}
                     <div>
-                    <SearchBox/>
+                    <SearchBox value={''} onChange={undefined} onSubmit={undefined}/>
                     </div>
                 </section>
             </div>
         </nav>
-    )
+    );
 }
