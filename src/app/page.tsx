@@ -101,7 +101,9 @@ const firstData = data?.list[0];
           </h2>
 
           <Container className="gap-10 px-6 items-center">
+            {/* temperature */}
             <div className="flex flex-col px-4">
+
               <span className="text-5xl">
                 {convertKelvinToCelsius(firstData?.main.temp ?? 296.37)}°F
               </span>
@@ -124,9 +126,21 @@ const firstData = data?.list[0];
                   </span>
               </p>
             </div>
+
+            {/* Time and weather data */}
+            <div className="flex gap-10 sm:gap-16 overflow-x-auto w-full justify-between pr-3">
+              {data?.list.map((d, i)=>
+                <div 
+                  key={i}
+                  className="flex flex-col justify-between gap-2 items-center text-xs 
+                  font-semibold"
+                >
+                  <p>{format(parseISO(d.dt_txt), "h:mm a")}</p>
+                </div>
+              )}
+            </div>
           </Container>
         </div>
-
       </section>
 
       {/* 7 days data */}
