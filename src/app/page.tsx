@@ -8,6 +8,8 @@ import Container from "./components/Container";
 import { convertKelvinToCelsius } from "./utils/convertKelvinToCelsius";
 import WeatherIcon from "./components/WeatherIcon";
 import { getDayOrNightIcon } from "./utils/getDayOrNightIcon";
+import WeatherDetails from "./components/WeatherDetails";
+import { metersToKm } from "./utils/metersToKm";
 
 interface WeatherData {
   cod: string;
@@ -157,7 +159,11 @@ const firstData = data?.list[0];
           </Container>
           
           <Container className="bg-yellow-300/80 px-6 gap-4 justify-between
-          overflow-x-auto"></Container>
+          overflow-x-auto">
+            <WeatherDetails 
+              visability={metersToKm(firstData?.visibility ?? 10000) } 
+              airPressure={ `${firstData?.main.pressure}`}/>
+          </Container>
           {/* right */}
         </div>
       </section>
