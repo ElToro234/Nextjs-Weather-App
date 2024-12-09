@@ -4,6 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 import Navbar from "./components/Navbar";
 import axios from "axios";
 import { format, parseISO } from "date-fns";
+import Container from "./components/Container";
+import { convertKelvinToCelsius } from "./utils/convertKelvinToCelsius";
 
 interface WeatherData {
   cod: string;
@@ -91,12 +93,20 @@ const firstData = data?.list[0];
     <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 pt-4">
       {/* Todays data */}
       <section>
+
         <div>
           <h2 className="flex gap-1 text-2xl items-end">
             <p>{format(parseISO(firstData?.dt_txt ??''), 'EEEE')}</p>
             <p className="text-lg">{format(parseISO(firstData?.dt_txt ??''), 'dd.MM.yyyy')}</p>
           </h2>
+
+          <Container className="gap-10 px-6 items-center">
+            <div className="flex flex-col px-4">
+              {convertKelvinToCelsius(firstData?.main.temp ?? 296.37)}°
+            </div>
+          </Container>
         </div>
+
       </section>
 
       {/* 7 days data */}
