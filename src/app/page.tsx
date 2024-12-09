@@ -6,6 +6,7 @@ import axios from "axios";
 import { format, parseISO } from "date-fns";
 import Container from "./components/Container";
 import { convertKelvinToCelsius } from "./utils/convertKelvinToCelsius";
+import WeatherIcon from "./components/WeatherIcon";
 
 interface WeatherData {
   cod: string;
@@ -105,13 +106,13 @@ const firstData = data?.list[0];
             <div className="flex flex-col px-4">
 
               <span className="text-5xl">
-                {convertKelvinToCelsius(firstData?.main.temp ?? 296.37)}°F
+                {convertKelvinToCelsius(firstData?.main.temp ?? 296.37)}
               </span>
 
               <p className="text-xs space-x-1 whitespace-nowrap">
                 <span>Feels like</span>
                 <span>
-                  {convertKelvinToCelsius(firstData?.main.feels_like ?? 0)}°F
+                  {convertKelvinToCelsius(firstData?.main.feels_like ?? 0)}
                 </span>
               </p>
 
@@ -135,7 +136,9 @@ const firstData = data?.list[0];
                   className="flex flex-col justify-between gap-2 items-center text-xs 
                   font-semibold"
                 >
-                  <p>{format(parseISO(d.dt_txt), "h:mm a")}</p>
+                  <p className="whitespace-nowrap">{format(parseISO(d.dt_txt), "h:mm a")}</p>
+                  <WeatherIcon iconName={d.weather[0].icon}/>
+                  <p >{convertKelvinToCelsius(d?.main.temp ?? 0)}</p>
                 </div>
               )}
             </div>
