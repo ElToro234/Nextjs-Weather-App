@@ -3,13 +3,14 @@
 import { useQuery } from "@tanstack/react-query";
 import Navbar from "./components/Navbar";
 import axios from "axios";
-import { format, parseISO } from "date-fns";
+import { format, fromUnixTime, parseISO } from "date-fns";
 import Container from "./components/Container";
 import { convertKelvinToCelsius } from "./utils/convertKelvinToCelsius";
 import WeatherIcon from "./components/WeatherIcon";
 import { getDayOrNightIcon } from "./utils/getDayOrNightIcon";
 import WeatherDetails from "./components/WeatherDetails";
 import { metersToKm } from "./utils/metersToKm";
+import { convertWindSpeed } from "./utils/convertWindSpeed";
 
 interface WeatherData {
   cod: string;
@@ -162,8 +163,14 @@ const firstData = data?.list[0];
           overflow-x-auto">
             <WeatherDetails 
               visability={metersToKm(firstData?.visibility ?? 10000) } 
-              airPressure={ `${firstData?.main.pressure}`}/>
+              airPressure={ `${firstData?.main.pressure} hPa`}
+              humidity= {`${firstData?.main.humidity}%`}
+              sunrise= {format(fromUnixTime(data?.city.sunrise ?? 1702949452 ), "H:mm")}
+              sunset= {format(fromUnixTime(data?.city.sunset ?? 1702949452 ), "H:mm")}
+              windSpeed={convertWindSpeed(firstData?.wind.speed ?? 1.64)}
+              />
           </Container>
+
           {/* right */}
         </div>
       </section>
