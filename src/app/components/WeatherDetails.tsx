@@ -6,7 +6,7 @@ import { MdAir } from 'react-icons/md';
 
 type Props = {}
 
-export interface WeatherDetailProps {
+export interface WeatherDetailProps{
     visability: string;
     humidity: string;
     windSpeed: string;

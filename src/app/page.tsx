@@ -11,6 +11,7 @@ import { getDayOrNightIcon } from "./utils/getDayOrNightIcon";
 import WeatherDetails from "./components/WeatherDetails";
 import { metersToKm } from "./utils/metersToKm";
 import { convertWindSpeed } from "./utils/convertWindSpeed";
+import ForecastWeatherDetail from "./components/ForecastWeatherDetail";
 
 interface WeatherData {
   cod: string;
@@ -33,6 +34,7 @@ interface WeatherData {
 }
 
 interface WeatherDetail {
+  dt: number;
   main: {
     temp: number;
     feels_like: number;
@@ -84,6 +86,23 @@ const firstData = data?.list[0];
 
   console.log("data", data);
 
+const uniqueDates = [
+  ...new Set(
+    data?.list.map(
+      (entry) => new Date(entry.dt * 1000).toISOString().split("T")[0]
+    )
+  )
+];
+
+// Filtering the data to get first entry after 6 AM for each unique data
+const firstDataForEachDate = uniqueDates.map((date) => {
+  return data?.list.find((entry) => {
+    const entryDate = new Date(entry.dt * 1000).toISOString().split("t")[0];
+    const entryTime = new Date(entry.dt * 1000).getHours();
+    return entryDate === date && entryTime >= 6;
+  })
+});
+
   if (isLoading) 
     return (
       <div className="flex items-center min-h-screen justify-center">
@@ -110,13 +129,13 @@ const firstData = data?.list[0];
             <div className="flex flex-col px-4">
 
               <span className="text-5xl">
-                {convertKelvinToCelsius(firstData?.main.temp ?? 296.37)}
+                {convertKelvinToCelsius(firstData?.main.temp ?? 296.37)}°f
               </span>
 
               <p className="text-xs space-x-1 whitespace-nowrap">
                 <span>Feels like</span>
                 <span>
-                  {convertKelvinToCelsius(firstData?.main.feels_like ?? 0)}
+                  {convertKelvinToCelsius(firstData?.main.feels_like ?? 0)}°
                 </span>
               </p>
 
@@ -178,6 +197,8 @@ const firstData = data?.list[0];
       {/* 7 days data */}
       <section className="flex w-full flex-col gap-4">
         <p className="text-2xl">Forecast (7 days) </p>
+
+        <ForecastWeatherDetail/>
       </section>
     </main>
   </div> 
