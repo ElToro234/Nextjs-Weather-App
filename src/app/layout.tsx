@@ -1,5 +1,6 @@
 'use client'
 
+import { Provider } from "jotai";
 // import type { Metadata } from "next";
 import "./globals.css";
 import {
@@ -24,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <QueryClientProvider client={queryClient}>
       <body>
-        { children }
+        <Provider>{ children }</Provider>
       </body>
       </QueryClientProvider>
     </html>

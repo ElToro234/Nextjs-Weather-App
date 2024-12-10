@@ -4,17 +4,20 @@ import React, { use, useState } from 'react'
 import { MdMyLocation, MdOutlineLocationOn, MdWbSunny } from 'react-icons/md'
 import SearchBox from './SearchBox'
 import axios from 'axios';
+import { placeAtom } from '../atom';
+import { useAtom } from 'jotai';
 
 type Props = {}
 
 const API_KEY = process.env.NEXT_PUBLIC_WEATHER_KEY;
 
 export default function Navbar({}: Props) {
-    const [city, setCity] = useState("");
-    const [error,setError] = useState(""); //Invalid city input
+    const [city, setCity] = useState('');
+    const [error,setError] = useState(''); //Invalid city input
 
     const[suggestions, setSuggestions] = useState<string[]>([]);
     const[showSuggestions, setShowSuggestions] = useState(false);
+    const[place, setPlace] = useAtom(placeAtom);
 
     async function handleInputChange(value: string){
         setCity(value);
@@ -26,7 +29,7 @@ export default function Navbar({}: Props) {
 
             const suggestions = response.data.list.map((item:any)=> item.name);
             setSuggestions(suggestions)
-            setError("")
+            setError('');
                 
             } catch (error) {
                 setSuggestions([]);
@@ -41,6 +44,19 @@ export default function Navbar({}: Props) {
     function handleSuggestionClick(value: string) {
         setCity(value);
         setShowSuggestions(false);
+    }
+
+
+    function handleSubmitSearch(e:React.FormEvent<HTMLFormElement>){
+        e.preventDefault();
+        if(suggestions.length == 0){
+            setError("Location not found");
+        }else{
+            setError('');
+            setPlace(city);
+            setShowSuggestions(false);
+            
+        }
     }
 
     return (
@@ -61,10 +77,19 @@ export default function Navbar({}: Props) {
                     <div className="relative">
                         <SearchBox 
                             value = {city}
+                            onSubmit={handleSubmitSearch}
                             onChange={(e)=>handleInputChange(e.target.value)}
                         /> 
 
-                        <SuggestionBox/>
+                        <SuggestionBox 
+                            {...{
+                                showSuggestions,
+                                suggestions,
+                                handleSuggestionClick,
+                                error
+                            }}
+
+                        />
                     </div>
                 </section>
             </div>
