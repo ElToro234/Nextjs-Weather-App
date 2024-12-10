@@ -32,10 +32,10 @@ export default function ForecastWeatherDetail(props: ForecastWeatherDetailProps)
         <Container className=" gap-4">
             {/* left section */}
             <section className="flex gap-4 items-center px-4">
-                <div>
+                <div className="flex flex-col gap-1 items-center">
                     <WeatherIcon iconName={weatherIcon}/>
-                    <p> {date} </p>
-                    <p className="text-sm"> {day} </p>
+                    <p> { date } </p>
+                    <p className="text-sm"> { day } </p>
                 </div>
 
                 <div className="flex flex-col px-4">
@@ -45,7 +45,7 @@ export default function ForecastWeatherDetail(props: ForecastWeatherDetailProps)
                         <span>{convertKelvinToCelsius(feels_like ?? 0)}°</span>
                     </p>
                 </div>
-                <p className="capitalize"> {description} </p>
+                <p className="capitalize"> { description } </p>
             </section>
 
             {/* right section*/}

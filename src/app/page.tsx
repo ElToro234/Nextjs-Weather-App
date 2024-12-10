@@ -71,7 +71,7 @@ interface WeatherDetail {
 export default function Home() {
   const fetchWeatherData = async (): Promise<WeatherData> => {
     const { data } = await axios.get(
-      `https://api.openweathermap.org/data/2.5/forecast?q=pune&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&cnt=56`
+      `https://api.openweathermap.org/data/2.5/forecast?q=montreal&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&cnt=56`
     );
     return data;
   };
@@ -111,7 +111,7 @@ const firstDataForEachDate = uniqueDates.map((date) => {
     );
     
   return( 
-  <div className="flex flex-col gap-4 bg-gray-100 min-h-screen">
+  <div className="flex flex-col gap-4 bg-gradient-to-r from-cyan-500 to-blue-500 min-h-screen">
     <Navbar/>
 
     <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 pt-4">
@@ -124,7 +124,7 @@ const firstDataForEachDate = uniqueDates.map((date) => {
             <p className="text-lg">{format(parseISO(firstData?.dt_txt ??''), "(dd.MM.yyyy)")}</p>
           </h2>
 
-          <Container className="gap-10 px-6 items-center">
+          <Container className="gap-10 px-6 items-center ">
             {/* temperature */}
             <div className="flex flex-col px-4">
 
@@ -178,6 +178,7 @@ const firstDataForEachDate = uniqueDates.map((date) => {
               firstData?.dt_txt ?? "")}/>
           </Container>
           
+          {/* right */}
           <Container className="bg-yellow-300/80 px-6 gap-4 justify-between
           overflow-x-auto">
             <WeatherDetails 
@@ -190,7 +191,6 @@ const firstDataForEachDate = uniqueDates.map((date) => {
               />
           </Container>
 
-          {/* right */}
         </div>
       </section>
 
