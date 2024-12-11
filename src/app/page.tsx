@@ -14,6 +14,7 @@ import { convertWindSpeed } from "./utils/convertWindSpeed";
 import ForecastWeatherDetail from "./components/ForecastWeatherDetail";
 import { useAtom } from "jotai";
 import { placeAtom } from "./atom";
+import { useEffect } from "react";
 
 interface WeatherData {
   cod: string;
@@ -80,11 +81,16 @@ export default function Home() {
     return data;
   };
 
-  const { isLoading, error, data } = useQuery<WeatherData, Error>({
+  const { isLoading, error, data, refetch } = useQuery<WeatherData, Error>({
     queryKey: ['repoData'], // Define query key
     queryFn: fetchWeatherData, // Fetch function
   }
 );
+
+//fetching place data so it renders the place weather in the submit searchy
+useEffect(() => {
+    refetch();
+  }, [place, refetch]);
 
 const firstData = data?.list[0];
 

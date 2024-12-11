@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <QueryClientProvider client={queryClient}>
       <body>
-        <Provider>{ children }</Provider>
+        { children }
       </body>
       </QueryClientProvider>
     </html>
