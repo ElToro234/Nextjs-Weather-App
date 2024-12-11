@@ -122,7 +122,8 @@ const firstDataForEachDate = uniqueDates.map((date) => {
     
   return( 
   <div className="flex flex-col gap-4 bg-gradient-to-r from-cyan-500 to-blue-500 min-h-screen">
-    <Navbar/>
+    {/* updating the name of city */}
+    <Navbar location={data?.city.name}/> 
 
     <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 pt-4">
      

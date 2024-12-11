@@ -7,11 +7,11 @@ import axios from 'axios';
 import { placeAtom } from '../atom';
 import { useAtom } from 'jotai';
 
-type Props = {}
+type Props = { location?: string };
 
 const API_KEY = process.env.NEXT_PUBLIC_WEATHER_KEY;
 
-export default function Navbar({}: Props) {
+export default function Navbar({ location }: Props) {
     const [city, setCity] = useState('');
     const [error,setError] = useState(''); //Invalid city input
 
@@ -71,7 +71,7 @@ export default function Navbar({}: Props) {
                 <section className="flex gap-2 items-center">
                     <MdMyLocation className="text-2xl text-gray-400 hover:opacity-80 cursor-pointer"/>
                     <MdOutlineLocationOn className="text-3xl"/>
-                    <p className="text-slate-900/80 text-sm text-gray-100">canada</p>
+                    <p className="text-slate-900/80 text-sm text-gray-100"> {location} </p>
 
                     {/* SEARCH BOX */}
                     <div className="relative">
