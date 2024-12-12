@@ -81,11 +81,11 @@ export default function Home() {
     return data;
   };
 
-  const { isLoading, error, data, refetch } = useQuery<WeatherData, Error>({
+  const { isLoading, error, data, refetch} = useQuery<WeatherData, Error>({
     queryKey: ['repoData'], // Define query key
     queryFn: fetchWeatherData, // Fetch function
-  }
-);
+    }
+  );
 
 //fetching place data so it renders the place weather in the submit searchy
 useEffect(() => {
@@ -94,7 +94,9 @@ useEffect(() => {
 
 const firstData = data?.list[0];
 
+
   console.log("data", data);
+  // console.log("Rendering weather data:", weatherData)
 
 const uniqueDates = [
   ...new Set(
@@ -119,14 +121,15 @@ const firstDataForEachDate = uniqueDates.map((date) => {
         <p className="animate-bounce">Loading...</p>
       </div>
     );
-    
+
   return( 
+  
   <div className="flex flex-col gap-4 bg-gradient-to-r from-cyan-500 to-blue-500 min-h-screen">
     {/* updating the name of city */}
     <Navbar location={data?.city.name}/> 
 
     <main className="px-3 max-w-7xl mx-auto flex flex-col gap-9 w-full pb-10 pt-4">
-     
+     3
       {/* Todays data */}
       <section className="space-y-4">
         <div className="space-y-2">
@@ -239,3 +242,7 @@ const firstDataForEachDate = uniqueDates.map((date) => {
   </div> 
   );
 }
+function consoleLogFetch() {
+  throw new Error("Function not implemented.");
+}
+

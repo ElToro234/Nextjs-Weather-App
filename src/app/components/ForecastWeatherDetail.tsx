@@ -3,7 +3,6 @@ import Container from './Container'
 import WeatherIcon from './WeatherIcon'
 import WeatherDetails, { WeatherDetailProps } from './WeatherDetails';
 import { convertKelvinToCelsius } from '../utils/convertKelvinToCelsius';
-import { PiDropSlashBold } from 'react-icons/pi';
 
 export interface ForecastWeatherDetailProps extends WeatherDetailProps{
     weatherIcon: string;
